@@ -20,7 +20,7 @@ L.tileLayer(
     var geojson = L.geoJson(data, {style:function(feature, layer){
     switch(feature.properties.name){
     case 'oyo': return{fillColor:'FED976', color:'black', fillOpacity:0.8};
-    }}).addTo(map);
+    }}}).addTo(map);
       
   });
   </script>

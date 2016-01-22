@@ -17,7 +17,7 @@ L.tileLayer(
 
 var style= {fillColor:'FED976', color:'black', fillOpacity:0.5};
 
-  $.getJSON("", function(data) {
+  $.getJSON("https://cdn.rawgit.com/mayotunde/work2/gh-pages/SWRegionMap.json", function(data) {
     var geojson = L.geoJson(data, style).addTo(map);
       
   });

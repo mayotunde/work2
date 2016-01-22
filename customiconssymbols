@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+<head>
+<title>Load Geojson point features with custom icons from github</title>
+  <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+   
+  <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+  <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+</head>
+<body>
+  <div id="map" style='width:700px;height:500px'></div>
+  <script>
+ var map = L.map('map').setView([4.60, 2.90], 5);
+L.tileLayer('http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png', {
+	attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a><a href="http://mapsnigeriainitiative.wordpress.com">mapsNI</a>&copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
+	subdomains: 'abcd',
+	maxZoom: 19}).addTo(map);
+
+var icon = L.icon({
+iconUrl: "https://lh3.googleusercontent.com/9XPjp_BuK-E3DWwaKHKbOwe0kEsR0_SXybN7Fg2KtC3oi5njqxMrokoLRjyfjpJCZYRl6-ZTaDlMTF6dhW9G4EpDN_mpCb4w-sdGNhgB_KY2dKqth0CWZb_SzIQtW6A4KKGFM56NqeyBE-QSlquwclZxph3RzTenezzGvOB9WLzxntlmXCKCHARR8Z9zxsh7O6UnVrGzBw5JUnCzZoRaMzPjyI8R3YgTx_ZmlqCAnpZEpbY9pNWdhY1O55TpG5q4GyZF1Jr8Klr27EEOO8mnStOkeWzTgWjLRv7bGZ2lX7WG5UAQC58qWOE2O9wvJwQDBhWPcNGuWL3uD8cLWmB9w1NZ0KEeglcy5bGADzZ3l8mYdRWoC9H8kceZ8LPF-8nmlVSiCBU9d8BrmPWzNhPQTCVltQb1L6qvlWsIwdlbWmDWz9FPYJm7lGOyn1HRQx06dGSgnRre6y0TXWkvBOCb-tsIqci4DThFEu56Kh5Jtj7w58McvFEGl7IwqeIrgbdK1x3qNeIh-PbM81QWBIXqvodhYF_WsLc7uCxlemcFhUAcMnvivFTxAhLlUnMXhm0_Vu7K=w127-h128-no",
+iconSize: [20,20]
+	});
+
+  $.getJSON("https://cdn.rawgit.com/mayotunde/work2/gh-pages/GrazingSpots.json", function(data) {
+    var geojson = L.geoJson(data, {
+      pointToLayer: function (feature, latlng) {
+        marker = new L.marker(latlng, {icon: icon});
+marker.bindPopup(feature.properties.HeadCount); return marker
+      }}).addTo(map);
+  });
+  </script>
+</body>
+</html>

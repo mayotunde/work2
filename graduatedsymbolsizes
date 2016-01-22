@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8 />
+<title>geojson point features styled according to attribute properties</title>
+<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+<script src='https://api.mapbox.com/mapbox.js/v2.2.3/mapbox.js'></script>
+<link href='https://api.mapbox.com/mapbox.js/v2.2.3/mapbox.css' rel='stylesheet' />
+<script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+</head>
+<body>
+
+<style>
+ .legend label,
+.legend span {
+  border-radius:50%/50%;
+  float: left;
+  height:15px;
+  width:30%;
+  margin-right:5px;
+  border: 1px solid #fff;
+        }
+</style>
+<div id='legend' style='display:none;'>
+  <strong>Grazing Spots</strong>
+	<ul class= 'legend labels'>
+   <span style='background:#FED976;width:17px;height:17px;fillOpacity: 0.5;'></span>8000+<br>
+    <span style='background:#FED976;width:14px;height:14px;'></span>5000<br>
+      <span style='background:#FED976;width:11px;height:11px;'></span>2000<br>
+ <span style='background:#FED976;width:9px;height:9px;'></span>500+<br>
+ <span style='background:#FED976;width:6px;height:6px;'></span>0+<br>
+    		</ul>
+        <div class='legend-source'>Source: <a href="www.mapsnigeriainitiative.wordpress.com">mapsnigeriainitiative</a></div>
+</div>
+
+<div id='map' style='width:800px;height:500px'></div>
+
+<script>
+L.mapbox.accessToken = 'pk.eyJ1IjoibWF5b3R1bmRlIiwiYSI6IlpFM1Jmck0ifQ.13TB14FKWB328q1q7eEZUQ';
+  var map = L.mapbox.map('map', 'mapbox.dark').setView([4.6, 2.9], 5);
+
+
+  $.getJSON("https://cdn.rawgit.com/mayotunde/work2/gh-pages/GrazingSpots.json", function(data) {
+    var geojson = L.geoJson(data, {
+      pointToLayer: function (feature, latlng) {
+        marker = new L.circleMarker(latlng)
+marker.bindPopup(feature.properties.Dry_Count);
+return marker;},
+style: function(feature, latlng)
+{var radius,PH = feature.properties.HeadCount;
+if (PH > 7999 ) radius = "17";
+else if (PH > 4999 ) radius = "14";
+else if (PH > 1999 ) radius = "11";
+else if (PH > 499 ) radius = "8";
+else if (PH > 0 ) radius = "6";
+return {color:"black", fillColor: "#FED976", radius: radius, fillOpacity: 0.5}}}).addTo(map);
+        });
+
+map.legendControl.addLegend(document.getElementById('legend').innerHTML);
+</script>
+<div id='logo' style='position:absolute;bottom:80px;left:20px;float:right';>
+<img src="https://lh3.googleusercontent.com/jY9fWF3HjY1NPeluF6LQDyDRL2zqGevA_IW0jKu5Z6GqsiSw6mHE_oCNDvGV_PnL_G6JFZKzZDHNqSHd6wS9F12GHCGpPiDU2yF2RK3ELBYotYSNMPOVUnyyobGCGKDA1Rc3Xga6vaxbx0MN3YR2WVvwW6avdpXMUZdZNAtBVPlV0famTCd-dXeHDmr53KNPQQNWLLM5Wgp3rUYvxbINhvTCnMlaUeHrp0Hab5BJaTB6SbabPpnPNPT1X3uvz6nQs3PgSbbG2pevw4Yn91DQI_kTuIcf7fmS39MdOm2LSFpB0wHgEvvlloLJfpXw0TvGjBpgZFeA8pIdmeoAr6q4aonVVkydr3WMN8v6DJ2DzFcfgYUHalxrDPoJTiZoh0U-qNTeUxc-kpXca8xlmO2EpZg4_SFbdZUU6ZNgQBiJoP99IwZ03Qzvp_0bdEbmigdzY8RLwP5riKHgotnXY4E71qS8yzlD8JvK4bK5ojBzvZvXlnfXDo0y82a8LJCHqjxbK3RbKDYZybb72d31gc-bpx6m1sKT24RnHZp2hq9FVbs=w80-h50-no" /><br>
+<small><a href="http://mapsnigeriainitiative.wordpress.com">mapsNI</a><small>
+</div>
+</body>
+</html>

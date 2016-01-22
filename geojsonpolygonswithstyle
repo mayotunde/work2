@@ -10,7 +10,7 @@
 <body>
   <div id="map" style='width:700px;height:500px'></div>
   <script>
- var map = L.map('map').setView([8.993351, 7.577700], 18);
+ var map = L.map('map').setView([8.998623255858604, 7.57783144646413], 18);
 mapLink = '<a href="http://openstreetmap.org">openstreetmap</a>,'+'<a href="http://mapsnigeriainitiative.wordpress.com">mapsNI</a>'; 
 L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: ' &copy; ' + mapLink,maxZoom: 22}).addTo(map);
 

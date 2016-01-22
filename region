@@ -18,9 +18,9 @@ L.tileLayer(
 
   $.getJSON("https://cdn.rawgit.com/mayotunde/work2/gh-pages/SWRegionMap.json", function(data) {
     var geojson = L.geoJson(data, {style: function(feature,layer)
-{switch(feature.properties.name)
-{case 'oyo': return {fillColor: "green", color: "black", weight: 1, fillOpacity: 0.8};
-case 'ogun': return {fillColor: "brown", color: "black", weight: 1, fillOpacity: 0.8};}
+{switch(feature.properties.ID_1)
+{case '2028': return {fillColor: "green", color: "black", weight: 1, fillOpacity: 0.8};
+case '2041': return {fillColor: "brown", color: "black", weight: 1, fillOpacity: 0.8};}
 }}).addTo(map);
       
   });
